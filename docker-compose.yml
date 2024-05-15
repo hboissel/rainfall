@@ -4,4 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - "6901:6901"
     container_name: attacker
