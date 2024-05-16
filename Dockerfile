@@ -6,6 +6,10 @@ USER 0
 
 RUN apt update
 
+# Install python3
+RUN apt install -y python3
+RUN apt install -y python3-pip
+
 # install ssh client
 RUN apt install -y openssh-client
 
@@ -32,6 +36,28 @@ RUN rm 2.7.0.zip
 RUN ln -s /root/checksec.sh-2.7.0/checksec /usr/bin/checksec
 RUN apt install -y binutils
 RUN apt install -y file
+
+#install visual studio code
+
+RUN apt install -y curl
+RUN wget https://go.microsoft.com/fwlink/?LinkID=760868 -O code.deb
+RUN apt install -y ./code.deb
+
+COPY binary_exploitation_101 /root/binary_exploitation_101
+
+# Install libc
+RUN apt install -y libc6-dev-i386
+
+# Install ltrace
+RUN apt install -y ltrace
+
+# Install zsh
+RUN apt install -y zsh
+RUN chsh -s /bin/zsh
+RUN sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+
+RUN git clone https://github.com/pwndbg/pwndbg && cd pwndbg \
+    && ./setup.sh && cd ..
 
 # Default command: open an interactive shell
 CMD ["tail", "-f", "/dev/null" ]

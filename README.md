@@ -8,4 +8,6 @@ https://github.com/pwndbg/pwndbg
 
 `checksec --file={filename}`
 
+`code --no-sandbox --user-data-dir=/root .`
+
 
