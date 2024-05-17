@@ -7,7 +7,7 @@ USER 0
 RUN apt update
 
 # Install python3
-RUN apt install -y python3
+RUN apt install -y python3 python2
 RUN apt install -y python3-pip
 
 # install ssh client
@@ -56,8 +56,9 @@ RUN apt install -y zsh
 RUN chsh -s /bin/zsh
 RUN sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
-RUN git clone https://github.com/pwndbg/pwndbg && cd pwndbg \
-    && ./setup.sh && cd ..
+RUN apt install -y python3-dev git libssl-dev libffi-dev build-essential
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install --upgrade pwntools
 
 # Default command: open an interactive shell
 CMD ["tail", "-f", "/dev/null" ]
