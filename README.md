@@ -10,4 +10,6 @@ https://github.com/pwndbg/pwndbg
 
 `code --no-sandbox --user-data-dir=/root .`
 
+https://samsclass.info/127/proj/p6-fs.htm
+
 

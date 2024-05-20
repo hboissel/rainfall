@@ -43,7 +43,7 @@ RUN apt install -y curl
 RUN wget https://go.microsoft.com/fwlink/?LinkID=760868 -O code.deb
 RUN apt install -y ./code.deb
 
-COPY binary_exploitation_101 /root/binary_exploitation_101
+#COPY binary_exploitation_101 /root/binary_exploitation_101
 
 # Install libc
 RUN apt install -y libc6-dev-i386
