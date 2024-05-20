@@ -16,6 +16,6 @@ fclean: clean
 re: fclean all
 
 attacker:
-	docker exec -it attacker /bin/bash
+	docker exec -it attacker /bin/zsh
 
 .Phony: all logs clean fclean

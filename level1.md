@@ -14,4 +14,4 @@ send the payload: `scp -P 4242 payload level1@192.168.1.88:/tmp/payload`
 
 `cat /tmp/payload | ./level1` doesnt give a shell but prompts the string
 
-We can do something like this to keep stdin opened `(echo test; cat) | cat 
+We can do something like this to keep stdin opened `(echo test; cat) | ./test `
