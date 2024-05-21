@@ -40,14 +40,14 @@ RUN apt-get install -y --fix-missing \
                             libxrender1 \
                             libxtst6 \
                             libxi6 \
-                            libsecret-1-0
+                            libsecret-1-0 libc6-dev-i386
 
 # #Install IDA
-RUN wget https://out7.hex-rays.com/files/idafree84_linux.run
-RUN chmod +x idafree84_linux.run
-RUN ./idafree84_linux.run --mode unattended --prefix /ida
-RUN rm idafree84_linux.run
-RUN ln -s /ida/ida64 /usr/bin/ida64
+# RUN wget https://out7.hex-rays.com/files/idafree84_linux.run
+# RUN chmod +x idafree84_linux.run
+# RUN ./idafree84_linux.run --mode unattended --prefix /ida
+# RUN rm idafree84_linux.run
+# RUN ln -s /ida/ida64 /usr/bin/ida64
 
 WORKDIR /headless
 # Default command: open an interactive shell
